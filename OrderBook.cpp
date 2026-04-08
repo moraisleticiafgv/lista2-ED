@@ -1,4 +1,5 @@
 #include <iostream>
+// #include "Order.hpp"
 #include "OrderBook.hpp"
 
 using namespace std;
@@ -102,3 +103,46 @@ bool OrderBook::cancel(int id) {
     return false;
 }
 
+Order* OrderBook::getBuyOrders(int* n) {
+    return this->buyOrders.toArray(n);
+}
+
+Order* OrderBook::getSellOrders(int* n) {
+    return this->sellOrders.toArray(n);
+}
+
+Transaction* OrderBook::getTransactions(int* n) {
+    if (this->transactionCount == 0) {
+        *n = 0;
+        return nullptr;
+    }
+    *n = this->transactionCount;
+    Transaction* arr = new Transaction[this->transactionCount];
+    for (int i = 0; i < this->transactionCount; i++) {
+        arr[i] = this->transactions[i];
+    }
+    return arr;
+}
+
+void OrderBook::printBuyOrders() {
+    std::cout << "Buy Orders:\n";
+    this->buyOrders.print();
+}
+
+void OrderBook::printSellOrders() {
+    std::cout << "Sell Orders:\n";
+    this->sellOrders.print();
+}
+
+void OrderBook::printTransactions() {
+    std::cout << "Transactions:\n";
+    if (this->transactionCount == 0) {
+        std::cout << "(empty)\n";
+        return;
+    }
+    for (int i = 0; i < this->transactionCount; i++) {
+        std::cout << "[" << this->transactions[i].getBuyOrderId() << ", "
+                  << this->transactions[i].getSellOrderId() << ", "
+                  << this->transactions[i].getExecutionPrice() << "]\n";
+    }
+}

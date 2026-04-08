@@ -1,5 +1,6 @@
 #include <iostream>
 #include "OrderLinkedList.hpp"
+#include "Order.hpp"
 
 using namespace std;
 
@@ -168,4 +169,18 @@ void OrderLinkedList::clear() {
 
     this->head = nullptr;
     this->size = 0;
+}
+
+void OrderLinkedList::print() {
+    if (head == nullptr) {
+        cout << "(empty)\n";
+        return;
+    }
+    OrderNode* cur = head;
+    while (cur != nullptr) {
+        cout << "[" << cur->data.getId() << " | "
+             << cur->data.getPrice() << " | "
+             << cur->data.getTimestamp() << "]\n";
+        cur = cur->next;
+    }
 }

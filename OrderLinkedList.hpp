@@ -32,6 +32,6 @@ public:
 
     Order* toArray(int* n);
     void clear();
+    void print();
 };
-
 #endif
